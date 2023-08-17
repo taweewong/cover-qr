@@ -80,4 +80,5 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     implementation("com.github.pheerathach:promptpay:1.0.2")
+    implementation("com.github.androidmads:QRGenerator:1.0.1")
 }
