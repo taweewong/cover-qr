@@ -10,8 +10,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.CoverQR"
-        tools:targetApi="31">
+        android:theme="@style/Theme.CoverQR">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -23,6 +22,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".CoverQRWidgetReceiver"
+            android:exported="true"
+            android:label="Photo">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/cover_qr_widget_info" />
+            <meta-data
+                android:name="com.samsung.android.appwidget.provider"
+                android:resource="@xml/samsung_widget_cover_info" />
+            <meta-data
+                android:name="com.samsung.android.sdk.subscreen.widget.support_visibility_callback"
+                android:value="true" />
+        </receiver>
     </application>
 
 </manifest>
