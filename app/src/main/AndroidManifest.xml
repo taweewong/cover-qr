@@ -24,9 +24,9 @@
         </activity>
 
         <receiver
-            android:name=".CoverQRWidgetReceiver"
-            android:exported="true"
-            android:label="Photo">
+            android:name="com.taweewong.coverqr.widget.CoverQRWidgetReceiver"
+            android:exported="true">
+
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>

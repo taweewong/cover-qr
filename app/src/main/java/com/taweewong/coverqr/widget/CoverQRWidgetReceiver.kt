@@ -1,19 +1,27 @@
-package com.taweewong.coverqr
+package com.taweewong.coverqr.widget
 
 import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import androidx.glance.appwidget.GlanceAppWidget
+import androidx.glance.appwidget.GlanceAppWidgetManager
 import androidx.glance.appwidget.GlanceAppWidgetReceiver
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class CoverQRWidgetReceiver : GlanceAppWidgetReceiver() {
 
     override val glanceAppWidget: GlanceAppWidget = CoverQRWidget()
 
+    private val coroutineScope = CoroutineScope(Dispatchers.Main + Job())
+
     override fun onReceive(context: Context, intent: Intent) {
         super.onReceive(context, intent)
         Toast.makeText(context, "Receive", Toast.LENGTH_SHORT).show()
+        observeWidgetReload(context)
     }
 
     override fun onUpdate(
@@ -23,10 +31,17 @@ class CoverQRWidgetReceiver : GlanceAppWidgetReceiver() {
     ) {
         super.onUpdate(context, appWidgetManager, appWidgetIds)
         Toast.makeText(context, "Update", Toast.LENGTH_SHORT).show()
+        observeWidgetReload(context)
     }
 
     override fun onDeleted(context: Context, appWidgetIds: IntArray) {
         super.onDeleted(context, appWidgetIds)
         Toast.makeText(context, "Bye Bye", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun observeWidgetReload(context: Context) = coroutineScope.launch {
+        GlanceAppWidgetManager(context).getGlanceIds(CoverQRWidget::class.java).firstOrNull()?.let { glanceId ->
+            glanceAppWidget.update(context, glanceId)
+        }
     }
 }
