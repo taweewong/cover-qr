@@ -10,7 +10,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.glance.Button
 import androidx.glance.GlanceModifier
@@ -102,10 +101,10 @@ fun CoverQRScreenMain(
 
 @Composable
 fun CoverQRScreenTypeNumber(
-    number: String,
+    value: String,
     onConfirmNumber: (number: String) -> Unit
 ) {
-    var number by remember { mutableStateOf(number) }
+    var valueState by remember { mutableStateOf(value) }
     val buttonWidth = 65.dp
     val buttonHeight = 55.dp
 
@@ -117,7 +116,7 @@ fun CoverQRScreenTypeNumber(
     ) {
         Row {
             Text(
-                text = number,
+                text = valueState,
                 maxLines = 1,
                 style = TextStyle(textAlign = TextAlign.Center),
                 modifier = GlanceModifier
@@ -129,46 +128,46 @@ fun CoverQRScreenTypeNumber(
         }
         Row(GlanceModifier.padding(top = 8.dp)) {
             Box {
-                Button(text = "1", modifier = GlanceModifier.width(buttonWidth).height(buttonHeight), onClick = { number += 1 })
+                Button(text = "1", modifier = GlanceModifier.width(buttonWidth).height(buttonHeight), onClick = { valueState += 1 })
             }
             Box(GlanceModifier.padding(start = 4.dp)) {
-                Button(text = "2", modifier = GlanceModifier.width(buttonWidth).height(buttonHeight), onClick = { number += 2 })
+                Button(text = "2", modifier = GlanceModifier.width(buttonWidth).height(buttonHeight), onClick = { valueState += 2 })
             }
             Box(GlanceModifier.padding(start = 4.dp)) {
-                Button(text = "3", modifier = GlanceModifier.width(buttonWidth).height(buttonHeight), onClick = { number += 3 })
+                Button(text = "3", modifier = GlanceModifier.width(buttonWidth).height(buttonHeight), onClick = { valueState += 3 })
             }
         }
         Row(GlanceModifier.padding(top = 4.dp)) {
             Box {
-                Button(text = "4", modifier = GlanceModifier.width(buttonWidth).height(buttonHeight), onClick = { number += 4 })
+                Button(text = "4", modifier = GlanceModifier.width(buttonWidth).height(buttonHeight), onClick = { valueState += 4 })
             }
             Box(GlanceModifier.padding(start = 4.dp)) {
-                Button(text = "5", modifier = GlanceModifier.width(buttonWidth).height(buttonHeight), onClick = { number += 5 })
+                Button(text = "5", modifier = GlanceModifier.width(buttonWidth).height(buttonHeight), onClick = { valueState += 5 })
             }
             Box(GlanceModifier.padding(start = 4.dp)) {
-                Button(text = "6", modifier = GlanceModifier.width(buttonWidth).height(buttonHeight), onClick = { number += 6 })
+                Button(text = "6", modifier = GlanceModifier.width(buttonWidth).height(buttonHeight), onClick = { valueState += 6 })
             }
         }
         Row(GlanceModifier.padding(top = 4.dp)) {
             Box {
-                Button(text = "7", modifier = GlanceModifier.width(buttonWidth).height(buttonHeight), onClick = { number += 7 })
+                Button(text = "7", modifier = GlanceModifier.width(buttonWidth).height(buttonHeight), onClick = { valueState += 7 })
             }
             Box(GlanceModifier.padding(start = 4.dp)) {
-                Button(text = "8", modifier = GlanceModifier.width(buttonWidth).height(buttonHeight), onClick = { number += 8 })
+                Button(text = "8", modifier = GlanceModifier.width(buttonWidth).height(buttonHeight), onClick = { valueState += 8 })
             }
             Box(GlanceModifier.padding(start = 4.dp)) {
-                Button(text = "9", modifier = GlanceModifier.width(buttonWidth).height(buttonHeight), onClick = { number += 9 })
+                Button(text = "9", modifier = GlanceModifier.width(buttonWidth).height(buttonHeight), onClick = { valueState += 9 })
             }
         }
         Row(GlanceModifier.padding(top = 4.dp)) {
             Box {
-                Button(text = "del", modifier = GlanceModifier.width(buttonWidth).height(buttonHeight).padding(0), onClick = { number = number.dropLast(1) })
+                Button(text = "del", modifier = GlanceModifier.width(buttonWidth).height(buttonHeight).padding(0), onClick = { valueState = valueState.dropLast(1) })
             }
             Box(GlanceModifier.padding(start = 4.dp)) {
-                Button(text = "0", modifier = GlanceModifier.width(buttonWidth).height(buttonHeight), onClick = { number += 0 })
+                Button(text = "0", modifier = GlanceModifier.width(buttonWidth).height(buttonHeight), onClick = { valueState += 0 })
             }
             Box(GlanceModifier.padding(start = 4.dp)) {
-                Button(text = "ok", modifier = GlanceModifier.width(buttonWidth).height(buttonHeight), onClick = { onConfirmNumber(number) })
+                Button(text = "ok", modifier = GlanceModifier.width(buttonWidth).height(buttonHeight), onClick = { onConfirmNumber(valueState) })
             }
         }
     }

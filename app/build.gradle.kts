@@ -51,9 +51,11 @@ android {
 }
 
 dependencies {
+    // Core
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
 
+    // Compose
     implementation("androidx.activity:activity-compose:1.7.2")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
     implementation("androidx.compose.ui:ui")
@@ -61,13 +63,22 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
 
+    // Glance
     implementation("androidx.glance:glance-appwidget:1.0.0-rc01")
     implementation("androidx.glance:glance-material:1.0.0-rc01")
     implementation("androidx.glance:glance-material3:1.0.0-rc01")
-    implementation("androidx.startup:startup-runtime:1.1.1")
 
+    // Koin
     implementation("io.insert-koin:koin-android:3.4.3")
 
+    // Preferences
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    // Misc
+    implementation("com.github.pheerathach:promptpay:1.0.2")
+    implementation("com.github.androidmads:QRGenerator:1.0.1")
+
+    // Test
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -75,7 +86,4 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-
-    implementation("com.github.pheerathach:promptpay:1.0.2")
-    implementation("com.github.androidmads:QRGenerator:1.0.1")
 }

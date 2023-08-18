@@ -38,14 +38,15 @@ class CoverQRWidget(
                     onAmountButtonClicked = { viewState = CoverQRViewState.TYPING_AMOUNT }
                 )
                 CoverQRViewState.TYPING_NUMBER -> CoverQRScreenTypeNumber(
-                    number = viewModel.mobileNumber,
+                    value = viewModel.mobileNumber,
                     onConfirmNumber = { number ->
                         viewModel.mobileNumber = number
+                        viewModel.saveMobileNumber(number)
                         viewState = CoverQRViewState.MAIN
                     }
                 )
                 CoverQRViewState.TYPING_AMOUNT -> CoverQRScreenTypeNumber(
-                    number = viewModel.amount,
+                    value = viewModel.amount,
                     onConfirmNumber = { amount ->
                         viewModel.amount = amount
                         viewState = CoverQRViewState.MAIN
