@@ -35,7 +35,10 @@ import com.github.pheerathach.ThaiQRPromptPay
 import com.google.zxing.WriterException
 import java.math.BigDecimal
 
-class CoverQRWidget : GlanceAppWidget() {
+class CoverQRWidget(
+    private val viewModel: CoverQRViewModel
+) : GlanceAppWidget() {
+
     private var lastGlanceId: GlanceId? = null
 
     companion object {
@@ -58,7 +61,7 @@ class CoverQRWidget : GlanceAppWidget() {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     if (mobileNumber.isEmpty()) {
-                        Text(text = "ใส่เบอร์หน่อยจ้า")
+                        Text(text = viewModel.test)
                     } else {
                         val content = getQRContent(mobileNumber, amount)
                         if (content != null) {

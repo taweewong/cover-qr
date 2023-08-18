@@ -11,12 +11,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class CoverQRWidgetReceiver : GlanceAppWidgetReceiver() {
-
-    override val glanceAppWidget: GlanceAppWidget = CoverQRWidget()
-
+class CoverQRWidgetReceiver : GlanceAppWidgetReceiver(), KoinComponent {
+    private val viewModel: CoverQRViewModel by inject()
     private val coroutineScope = CoroutineScope(Dispatchers.Main + Job())
+
+    override val glanceAppWidget: GlanceAppWidget = CoverQRWidget(viewModel)
 
     override fun onReceive(context: Context, intent: Intent) {
         super.onReceive(context, intent)
