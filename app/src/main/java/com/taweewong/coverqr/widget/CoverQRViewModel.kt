@@ -14,4 +14,10 @@ class CoverQRViewModel(
     fun saveMobileNumber(mobileNumber: String) {
         preferencesManager.saveData(mobilePrefKey, mobileNumber)
     }
+
+    fun reset() {
+        mobileNumber = ""
+        amount = ""
+        preferencesManager.saveData(mobilePrefKey, "")
+    }
 }

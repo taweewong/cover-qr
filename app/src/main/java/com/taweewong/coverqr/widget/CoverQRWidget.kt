@@ -1,6 +1,7 @@
 package com.taweewong.coverqr.widget
 
 import android.content.Context
+import androidx.compose.runtime.currentComposer
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -11,6 +12,8 @@ import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.SizeMode
 import androidx.glance.appwidget.action.ActionCallback
 import androidx.glance.appwidget.provideContent
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class CoverQRWidget(
     private val viewModel: CoverQRViewModel
@@ -23,7 +26,7 @@ class CoverQRWidget(
     }
 
     enum class CoverQRViewState {
-        MAIN, TYPING_NUMBER, TYPING_AMOUNT
+        MAIN, RESET, TYPING_NUMBER, TYPING_AMOUNT
     }
     
     override suspend fun provideGlance(context: Context, id: GlanceId) {
@@ -31,11 +34,15 @@ class CoverQRWidget(
             var viewState by remember { mutableStateOf(CoverQRViewState.MAIN) }
 
             when (viewState) {
-                CoverQRViewState.MAIN -> CoverQRScreenMain(
+                CoverQRViewState.MAIN, CoverQRViewState.RESET -> CoverQRScreenMain(
                     mobileNumber = viewModel.mobileNumber,
                     amount = viewModel.amount,
                     onMobileNumberButtonClicked = { viewState = CoverQRViewState.TYPING_NUMBER },
-                    onAmountButtonClicked = { viewState = CoverQRViewState.TYPING_AMOUNT }
+                    onAmountButtonClicked = { viewState = CoverQRViewState.TYPING_AMOUNT },
+                    onResetButtonClicked = {
+                        viewState = CoverQRViewState.RESET
+                        viewModel.reset()
+                    }
                 )
                 CoverQRViewState.TYPING_NUMBER -> CoverQRScreenTypeNumber(
                     value = viewModel.mobileNumber,

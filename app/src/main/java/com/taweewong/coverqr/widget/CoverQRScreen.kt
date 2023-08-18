@@ -2,6 +2,7 @@ package com.taweewong.coverqr.widget
 
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.ColorFilter
 import android.util.Log
 import androidmads.library.qrgenearator.QRGContents
 import androidmads.library.qrgenearator.QRGEncoder
@@ -12,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.unit.dp
 import androidx.glance.Button
+import androidx.glance.ButtonDefaults
 import androidx.glance.GlanceModifier
 import androidx.glance.ImageProvider
 import androidx.glance.appwidget.cornerRadius
@@ -28,6 +30,7 @@ import androidx.glance.layout.width
 import androidx.glance.text.Text
 import androidx.glance.text.TextAlign
 import androidx.glance.text.TextStyle
+import androidx.glance.unit.ColorProvider
 import com.github.pheerathach.ThaiQRPromptPay
 import com.google.zxing.WriterException
 import com.taweewong.coverqr.R
@@ -38,7 +41,8 @@ fun CoverQRScreenMain(
     mobileNumber: String,
     amount: String,
     onMobileNumberButtonClicked: () -> Unit,
-    onAmountButtonClicked: () -> Unit
+    onAmountButtonClicked: () -> Unit,
+    onResetButtonClicked: () -> Unit,
 ) {
 //    var mobileNumberState by remember { mutableStateOf("") }
 
@@ -74,26 +78,33 @@ fun CoverQRScreenMain(
         }
         Row(
             modifier = GlanceModifier
-                .padding(
-                    start = 16.dp,
-                    bottom = 32.dp,
-                    end = 16.dp,
-                    top = 0.dp
-                ),
+                .padding(bottom = 32.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Column {
                 val text = mobileNumber.ifEmpty { "Mobile Number" }
-                Button(text = text, onClick = {
-                    onMobileNumberButtonClicked()
-                })
+                Button(
+                    text = text,
+                    onClick = {
+                        onMobileNumberButtonClicked()
+                    })
             }
-            Column(modifier = GlanceModifier.padding(start = 16.dp)) {
+            Column(modifier = GlanceModifier.padding(start = 8.dp)) {
                 val text = amount.ifEmpty { "Amount" }
-                Button(text = text, onClick = {
-                    onAmountButtonClicked()
-                })
+                Button(
+                    text = text,
+                    onClick = {
+                        onAmountButtonClicked()
+                    })
+            }
+            Column(modifier = GlanceModifier.padding(start = 8.dp)) {
+                Button(
+                    text = "x",
+                    colors = ButtonDefaults.buttonColors(backgroundColor = ColorProvider(R.color.red)),
+                    onClick = {
+                        onResetButtonClicked()
+                    })
             }
         }
     }
