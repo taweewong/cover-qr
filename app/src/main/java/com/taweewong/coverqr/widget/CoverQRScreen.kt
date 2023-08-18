@@ -192,7 +192,7 @@ private fun getQRContent(mobileNumber: String?, amount: String?): String? {
                 .staticQR()
                 .creditTransfer()
                 .mobileNumber(mobileNumber)
-                .amount(BigDecimal("10.00"))
+                .amount(BigDecimal(amount))
                 .build()
         }
 
